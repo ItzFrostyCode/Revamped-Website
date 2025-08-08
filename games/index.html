@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games - JoshuaArabejo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="shared/css/games-main.css">
+    
+    <!-- Theme initialization script - runs before body loads -->
+    <script>
+        // Apply theme immediately to prevent flash
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            console.log('Saved theme from localStorage:', savedTheme); // Debug
+            
+            // Default to light-mode if no theme is saved
+            const themeToApply = savedTheme || 'light-mode';
+            console.log('Applying theme:', themeToApply); // Debug
+            
+            // Apply to html element immediately
+            document.documentElement.className = themeToApply;
+            
+            // Also set body class when DOM loads
+            document.addEventListener('DOMContentLoaded', function() {
+                document.body.className = themeToApply;
+                console.log('Body class applied:', document.body.className); // Debug
+            });
+        })();
+    </script>
+</head>
+<body>
+    <!-- Responsive Header -->
+    <header class="y8-header">
+        <div class="container">
+            <div class="header-main">
+                <div class="header-left">
+                    <a href="../index.html" class="back-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19 12H5m6-7l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span class="back-text">Back to Home</span>
+                    </a>
+                    <div class="logo">
+                        <span class="h-color">H</span>
+                        <span class="c-color">C</span>
+                        <span class="j-color">J</span>
+                    </div>
+                </div>
+                
+                <nav class="categories desktop-nav">
+                    <a href="#" class="category active">All Games</a>
+                    <a href="#" class="category">Card</a>
+                    <a href="#" class="category">Puzzle</a>
+                    <a href="#" class="category">Action</a>
+                </nav>
+                
+                <div class="header-right">
+                    <button class="theme-toggle" id="themeToggle">
+                        <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+                            <path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                        <svg class="moon-icon hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </button>
+                    <button class="hamburger-menu" id="hamburgerMenu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Navigation -->
+            <nav class="mobile-nav" id="mobileNav">
+                <button class="mobile-nav-close" id="mobileNavClose">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <a href="#" class="category active">All Games</a>
+                <a href="#" class="category">Card</a>
+                <a href="#" class="category">Puzzle</a>
+                <a href="#" class="category">Action</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Games Section -->
+    <main class="games-section">
+        <div class="container">
+            <div class="games-grid">
+                <!-- Game 21 -->
+                <div class="game-item">
+                    <a href="game-21/game-21.html" class="game-link">
+                        <div class="game-thumbnail">
+                            <img src="game-21/assets/images/img-game/game-21-img.png" alt="Game 21">
+                            <div class="play-overlay">
+                                <div class="play-button">▶</div>
+                            </div>
+                        </div>
+                        <div class="game-title">21</div>
+                    </a>
+                </div>
+
+                <!-- Coming Soon Games -->
+                <div class="game-item coming-soon">
+                    <div class="game-link">
+                        <div class="game-thumbnail">
+                            <div class="coming-soon-thumb">
+                                <span>🎮</span>
+                                <p>Coming Soon</p>
+                            </div>
+                        </div>
+                        <div class="game-title">Puzzle Master</div>
+                    </div>
+                </div>
+
+                <div class="game-item coming-soon">
+                    <div class="game-link">
+                        <div class="game-thumbnail">
+                            <div class="coming-soon-thumb">
+                                <span>🚀</span>
+                                <p>Coming Soon</p>
+                            </div>
+                        </div>
+                        <div class="game-title">Space Adventure</div>
+                    </div>
+                </div>
+
+                <div class="game-item coming-soon">
+                    <div class="game-link">
+                        <div class="game-thumbnail">
+                            <div class="coming-soon-thumb">
+                                <span>🏆</span>
+                                <p>Coming Soon</p>
+                            </div>
+                        </div>
+                        <div class="game-title">Racing Game</div>
+                    </div>
+                </div>
+
+                <div class="game-item coming-soon">
+                    <div class="game-link">
+                        <div class="game-thumbnail">
+                            <div class="coming-soon-thumb">
+                                <span>🎯</span>
+                                <p>Coming Soon</p>
+                            </div>
+                        </div>
+                        <div class="game-title">Target Practice</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="shared/js/games-main.js"></script>
+</body>
+</html>

@@ -325,8 +325,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const desktopNav = document.getElementById('header-nav-main'); // Reference to desktop nav
     const headerUtilitiesCta = document.getElementById('header-utilities-cta'); // Reference to utilities
 
+    // Debug: Log element existence
+    console.log('Hamburger menu elements found:', {
+        hamburgerMenuBtn: !!hamburgerMenuBtn,
+        mobileNavMenu: !!mobileNavMenu,
+        closeMobileNavBtn: !!closeMobileNavBtn,
+        desktopNav: !!desktopNav,
+        headerUtilitiesCta: !!headerUtilitiesCta
+    });
+
     // Function to check screen width and toggle hamburger visibility
     const toggleHamburgerVisibility = () => {
+        if (!hamburgerMenuBtn || !desktopNav || !headerUtilitiesCta) {
+            console.error('Required elements not found for hamburger visibility toggle');
+            return;
+        }
+        
         if (window.innerWidth <= 1024) {
             hamburgerMenuBtn.classList.remove('hidden'); // Show hamburger button
             desktopNav.style.display = 'none'; // Hide desktop nav
@@ -336,8 +350,10 @@ document.addEventListener('DOMContentLoaded', () => {
             desktopNav.style.display = 'flex'; // Show desktop nav
             headerUtilitiesCta.style.gap = '30px'; // Restore desktop gap
             // Ensure mobile nav is closed if resizing from mobile to desktop
-            mobileNavMenu.classList.remove('is-open');
-            body.classList.remove('no-scroll');
+            if (mobileNavMenu) {
+                mobileNavMenu.classList.remove('is-open');
+                body.classList.remove('no-scroll');
+            }
         }
     };
 
@@ -347,24 +363,36 @@ document.addEventListener('DOMContentLoaded', () => {
     // Re-check on window resize
     window.addEventListener('resize', toggleHamburgerVisibility);
 
-
-    hamburgerMenuBtn.addEventListener('click', () => {
-        mobileNavMenu.classList.add('is-open');
-        body.classList.add('no-scroll'); // Prevent scrolling on body when menu is open
-    });
-
-    closeMobileNavBtn.addEventListener('click', () => {
-        mobileNavMenu.classList.remove('is-open');
-        body.classList.remove('no-scroll'); // Re-enable scrolling
-    });
-
-    // Close mobile menu when a link is clicked (optional, but good UX)
-    mobileNavMenu.querySelectorAll('ul li a:not(.dropdown-toggle-mobile)').forEach(link => {
-        link.addEventListener('click', () => {
-            mobileNavMenu.classList.remove('is-open');
-            body.classList.remove('no-scroll');
+    // Add error checking for hamburger menu elements
+    if (hamburgerMenuBtn && mobileNavMenu && closeMobileNavBtn) {
+        console.log('Hamburger menu elements found, setting up event listeners...');
+        
+        hamburgerMenuBtn.addEventListener('click', () => {
+            console.log('Hamburger button clicked!');
+            mobileNavMenu.classList.add('is-open');
+            body.classList.add('no-scroll'); // Prevent scrolling on body when menu is open
         });
-    });
+
+        closeMobileNavBtn.addEventListener('click', () => {
+            console.log('Close mobile nav button clicked!');
+            mobileNavMenu.classList.remove('is-open');
+            body.classList.remove('no-scroll'); // Re-enable scrolling
+        });
+
+        // Close mobile menu when a link is clicked (optional, but good UX)
+        mobileNavMenu.querySelectorAll('ul li a:not(.dropdown-toggle-mobile)').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileNavMenu.classList.remove('is-open');
+                body.classList.remove('no-scroll');
+            });
+        });
+    } else {
+        console.error('Hamburger menu elements not found:', {
+            hamburgerMenuBtn: !!hamburgerMenuBtn,
+            mobileNavMenu: !!mobileNavMenu,
+            closeMobileNavBtn: !!closeMobileNavBtn
+        });
+    }
 
 
     // --- Mobile Creations Dropdown Toggle ---

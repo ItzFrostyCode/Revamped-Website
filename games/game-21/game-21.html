@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>21 Card Game - JoshuaArabejo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../shared/css/games-main.css">
+    <link rel="stylesheet" href="assets/css/games-21.css">
+    
+    <!-- Theme initialization script - runs before body loads -->
+    <script>
+        // Apply theme immediately to prevent flash
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            console.log('Game - Saved theme from localStorage:', savedTheme); // Debug
+            
+            // Default to light-mode if no theme is saved
+            const themeToApply = savedTheme || 'light-mode';
+            console.log('Game - Applying theme:', themeToApply); // Debug
+            
+            // Apply to html element immediately
+            document.documentElement.className = themeToApply;
+            
+            // Also set body class when DOM loads
+            document.addEventListener('DOMContentLoaded', function() {
+                document.body.className = themeToApply;
+                console.log('Game - Body class applied:', document.body.className); // Debug
+            });
+        })();
+    </script>
+</head>
+<body>
+    <!-- Responsive Games Header -->
+    <header class="y8-header">
+        <div class="container">
+            <div class="header-main">
+                <div class="header-left">
+                    <a href="../index.html" class="back-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19 12H5m6-7l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span class="back-text">Back to Games</span>
+                    </a>
+                    <div class="logo">
+                        <span class="h-color">H</span>
+                        <span class="c-color">C</span>
+                        <span class="j-color">J</span>
+                    </div>
+                </div>
+                
+                <nav class="categories desktop-nav">
+                    <a href="../index.html" class="category">All Games</a>
+                    <a href="#" class="category active">Card</a>
+                    <a href="../index.html" class="category">Puzzle</a>
+                    <a href="../index.html" class="category">Action</a>
+                </nav>
+                
+                <div class="header-right">
+                    <button class="theme-toggle" id="themeToggle">
+                        <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+                            <path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                        <svg class="moon-icon hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </button>
+                    <button class="hamburger-menu" id="hamburgerMenu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Navigation -->
+            <nav class="mobile-nav" id="mobileNav">
+                <button class="mobile-nav-close" id="mobileNavClose">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <a href="../index.html" class="category">All Games</a>
+                <a href="#" class="category active">Card</a>
+                <a href="../index.html" class="category">Puzzle</a>
+                <a href="../index.html" class="category">Action</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Game Section -->
+            <main class="main-content">
+            <section class="game-section">
+                <div class="container">
+                    <div class="game-layout">
+                        <!-- Combined Game Area with Integrated Controls -->
+                        <div class="game-area">
+                            <div class="game-canvas">
+                                <div class="game-header">
+                                    <button class="how-to-play-btn" id="howToPlayBtn">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+                                            <path d="M9.09 9A3 3 0 0 1 12 6c1.31 0 2.42.83 2.83 2M12 17h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        How to Play
+                                    </button>
+                                    <div class="banker-message" id="bankerMessage">Banker: WELCOME TO 21 CARD GAME!</div>
+                                </div>
+                                
+                                <div class="game-table">
+                                    <div class="player-section">
+                                        <div class="player-area">
+                                            <div class="player-info">
+                                                <h3>You</h3>
+                                                <div class="player-stats">
+                                                    <div class="score-display">
+                                                        <span class="total-score" id="playerScore">0</span>
+                                                        <span class="score-divider">/</span>
+                                                        <span class="max-score">21</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="cards-container" id="playerCardsContainer">
+                                                <!-- Cards will be dynamically added here -->
+                                            </div>
+                                            <div class="hearts-container" id="playerHeartsContainer">
+                                                <!-- Hearts will be dynamically added here -->
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="vs-indicator">VS</div>
+                                        
+                                        <div class="player-area">
+                                            <div class="player-info">
+                                                <h3>Bot</h3>
+                                                <div class="player-stats">
+                                                    <div class="score-display">
+                                                        <span class="total-score" id="botScore">0</span>
+                                                        <span class="score-divider">/</span>
+                                                        <span class="max-score">21</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="cards-container" id="botCardsContainer">
+                                                <!-- Cards will be dynamically added here -->
+                                            </div>
+                                            <div class="hearts-container" id="botHeartsContainer">
+                                                <!-- Hearts will be dynamically added here -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Integrated Game Controls -->
+                                    <div class="integrated-controls">
+                                        <div class="control-buttons">
+                                            <button id="hitButton" class="control-btn primary">Hit</button>
+                                            <button id="stayButton" class="control-btn secondary">Stay</button>
+                                            <button id="undoButton" class="control-btn undo">Undo</button>
+                                        </div>
+                                        
+                                        <div class="game-stats">
+                                            <div class="stat-item">
+                                                <span class="stat-label">Round</span>
+                                                <span class="stat-value">1</span>
+                                            </div>
+                                            <div class="stat-item">
+                                                <span class="stat-label">Wins</span>
+                                                <span class="stat-value">0</span>
+                                            </div>
+                                            <div class="stat-item">
+                                                <span class="stat-label">Losses</span>
+                                                <span class="stat-value">0</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bottom Section: Game Details with Help Icon -->
+            <section class="bottom-section">
+                <div class="container">
+                    <div class="bottom-layout">
+                        <!-- Game Details -->
+                        <div class="game-details">
+                            <h3>21 Card Game</h3>
+                            <p>Test your luck and strategy in this classic card game. Get as close to 21 as possible without going over!</p>
+                            
+                            <div class="game-tags">
+                                <span class="tag">Strategy</span>
+                                <span class="tag">Cards</span>
+                                <span class="tag">Classic</span>
+                                <span class="tag">Single Player</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Related Games -->
+                        <div class="related-games">
+                            <h3>More Games</h3>
+                            <div class="related-grid">
+                                <a href="#" class="related-game">
+                                    <div class="coming-soon-placeholder">🎮</div>
+                                    <span>Poker</span>
+                                </a>
+                                <a href="#" class="related-game">
+                                    <div class="coming-soon-placeholder">🃏</div>
+                                    <span>Blackjack</span>
+                                </a>
+                                <a href="#" class="related-game">
+                                    <div class="coming-soon-placeholder">♠️</div>
+                                    <span>Solitaire</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+    <!-- Game Popup -->
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <h3 id="popupTitle">Game Over</h3>
+            <p id="popupMessage"></p>
+            <div class="popup-buttons">
+                <button id="playAgainYes" class="popup-btn primary">Play Again</button>
+                <button id="playAgainNo" class="popup-btn secondary">Back to Games</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- How to Play Modal -->
+    <div id="howToPlayModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>How to Play 21 Card Game</h3>
+                <button class="modal-close" id="closeModal">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="2"/>
+                        <line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="instruction-grid">
+                    <div class="instruction-item">
+                        <div class="instruction-icon">🎯</div>
+                        <h4>Goal</h4>
+                        <p>Get as close to 21 as possible without going over. Beat the bot's score to win!</p>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-icon">👆</div>
+                        <h4>Hit</h4>
+                        <p>Draw another card to get closer to 21. Be careful not to bust!</p>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-icon">✋</div>
+                        <h4>Stay</h4>
+                        <p>Keep your current cards and end your turn. The bot will then play.</p>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-icon">↶</div>
+                        <h4>Undo</h4>
+                        <p>Remove your last card. Can only be used once per game.</p>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-icon">❤️</div>
+                        <h4>Hearts</h4>
+                        <p>You lose a heart each time you lose a round. Game over when all hearts are lost.</p>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-icon">🏆</div>
+                        <h4>Winning</h4>
+                        <p>Get closer to 21 than the bot without going over to win the round!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../shared/js/games-main.js"></script>
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/games-21.js"></script>
+  </div>
+</body>
+</html>
