@@ -272,6 +272,7 @@ body {
     --color-hover-shadow: var(--color-hover-shadow-dark);
 }
 
+
 /* ================================
    DARK MODE THEME STYLES
    ================================ */
@@ -4697,13 +4698,13 @@ body:not(.light-mode) .skill-category:hover {
 }
 
 body.light-mode .project-card:hover {
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
-    border-color: rgba(255, 195, 106, 0.3);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    border-color: rgba(0, 0, 0, 0.3);
 }
 
 body:not(.light-mode) .project-card:hover {
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
-    border-color: rgba(255, 195, 106, 0.2);
+    border-color: rgba(0, 0, 0, 0.2);
 }
 
 
@@ -5282,7 +5283,7 @@ body.light-mode label {
 /* Light Mode Icons Enhancement */
 body.light-mode .icon,
 body.light-mode svg {
-    color: #808080;
+    color: var(--color-text-primary-light);
     transition: color 0.3s ease;
 }
 
@@ -5343,6 +5344,13 @@ body.light-mode .soft-skill-item:hover {
 
 /* Light Mode Tools & Skills Cards */
 body.light-mode .skill-category {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .project-card,
+body.light-mode .service-card {
     background: #FFFFFF;
     border: 1px solid #E2E8F0;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -5986,6 +5994,8 @@ body:not(.light-mode) .stage-number {
         font-size: 28px;
     }
 }
+
+
 
 /* ==================== ACHIEVEMENTS SECTION ==================== */
 #achievements-section {
@@ -10314,26 +10324,34 @@ body:not(.light-mode) .footer-bottom-link {
 
 .tech-categories {
     display: flex;
+    flex-wrap: wrap;
     gap: 32px;
-    transition: transform 0.3s ease;
-    padding: 0;
+    justify-content: center;
+    padding: 20px; /* add breathing space */
 }
 
 .tech-category {
     background: var(--color-glass-bg);
     backdrop-filter: blur(20px);
     border: 1px solid var(--color-glass-border);
-    padding: 36px;
+    padding: 36px 24px;
     border-radius: 20px;
-    min-width: 300px;
-    flex-shrink: 0;
+    min-width: 260px;
+    max-width: 320px;
+    flex: 1 1 260px;
+    height: 220px;
     position: relative;
     overflow: hidden;
     transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
     box-shadow: 
         0 16px 32px rgba(0, 0, 0, 0.1),
         inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
+
 
 .tech-category::before {
     content: '';
@@ -10399,73 +10417,6 @@ body:not(.light-mode) .footer-bottom-link {
 }
 
 /* Enhanced Slider Controls */
-.tech-slider-btn {
-    background: var(--color-glass-bg);
-    backdrop-filter: blur(16px);
-    border: 1px solid var(--color-glass-border);
-    border-radius: 50%;
-    width: 56px;
-    height: 56px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-    color: var(--color-text-primary);
-    font-size: 20px;
-    font-weight: bold;
-    font-family: 'Inter', sans-serif;
-    box-shadow: 
-        0 8px 16px rgba(0, 0, 0, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    position: relative;
-    overflow: hidden;
-}
-
-.tech-slider-btn::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, var(--color-accent-primary), #ffab40);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    border-radius: 50%;
-}
-
-.tech-slider-btn:hover::before {
-    opacity: 1;
-}
-
-.tech-slider-btn:hover {
-    transform: scale(1.1) translateY(-2px);
-    color: var(--color-bg-primary);
-    border-color: var(--color-accent-primary);
-    box-shadow: 
-        0 16px 32px rgba(255, 195, 106, 0.3),
-        0 8px 16px rgba(0, 0, 0, 0.15),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-}
-
-.tech-slider-btn:hover * {
-    position: relative;
-    z-index: 1;
-}
-
-.tech-slider-btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: none;
-}
-
-.tech-slider-btn:disabled:hover {
-    transform: none;
-    color: var(--color-text-primary);
-    border-color: var(--color-glass-border);
-}
-
-.tech-slider-btn:disabled:hover::before {
-    opacity: 0;
-}
 
 /* Enhanced Slider Dots */
 .tech-slider-dots {
@@ -11286,16 +11237,72 @@ body.light-mode .about-cta-buttons .cta-button.secondary:hover svg path {
     .tech-slider-dots {
         display: none;
     }
-    
     .tech-categories {
-        justify-content: center;
-        flex-wrap: wrap;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 32px;
     }
-    
     .tech-category {
-        min-width: 250px;
-        flex: 1;
-        max-width: 280px;
+        height: 220px;
+    }
+}
+
+/* Tablet: Adjust tech-categories-slider for better fit */
+@media (max-width: 900px) {
+    .tech-categories {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 16px;
+    }
+    .tech-category {
+        height: 200px;
+        padding: 18px;
+        margin-bottom: 0;
+    }
+}
+
+/* Mobile: Stack and shrink slider */
+@media (max-width: 600px) {
+    .tech-categories-slider {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        padding: 0 2px;
+    }
+    .tech-categories {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding-bottom: 0;
+    }
+    .tech-category {
+        height: 180px;
+        padding: 12px;
+        margin-bottom: 0;
+    }
+    .tech-category-title {
+        font-size: 13px;
+    }
+}
+
+/* Small Mobile: Extra compact */
+@media (max-width: 400px) {
+    .tech-categories-slider {
+        gap: 4px;
+        padding: 0 1px;
+    }
+    .tech-categories {
+        gap: 4px;
+    }
+    .tech-category {
+        min-width: 100px;
+        padding: 6px;
+    }
+    .tech-slider-btn {
+        width: 24px;
+        height: 24px;
+        font-size: 10px;
+    }
+    .tech-category-title {
+        font-size: 10px;
     }
 }
 
